@@ -17,7 +17,18 @@ namespace NFluent
     /// <summary>
     /// Provides assertion methods to be executed on an object instance.
     /// </summary>
-    public interface IObjectFluentAssertion : IFluentAssertion, IEqualityFluentAssertionTrait<IObjectFluentAssertion>, IInstanceTypeFluentAssertionTrait<IObjectFluentAssertion>
+    /// <typeparam name="T">
+    /// The real object.
+    /// </typeparam>
+    public interface IObjectFluentAssertionTrait<out T> : IFluentAssertion, IEqualityFluentAssertionTrait<T>, IInstanceTypeFluentAssertionTrait<T>
+        where T : IFluentAssertion
+    {
+    }
+
+    /// <summary>
+    /// Provides assertion methods to be executed on an object instance.
+    /// </summary>
+    public interface IObjectFluentAssertion : IObjectFluentAssertionTrait<IObjectFluentAssertion>
     {
     }
 }

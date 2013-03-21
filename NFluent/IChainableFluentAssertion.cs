@@ -20,7 +20,7 @@ namespace NFluent
     /// Provides a way to chain two <see cref="IFluentAssertion"/> instances. 
     /// </summary>
     /// <typeparam name="T">Type of the <see cref="IFluentAssertion"/> to be chained.</typeparam>
-    public interface IChainableFluentAssertion<T> where T : IFluentAssertion
+    public interface IChainableFluentAssertion<out T> where T : IFluentAssertion
     {
         /// <summary>
         /// Chains a new fluent assertion to the current one.

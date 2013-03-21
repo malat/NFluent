@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="IDateTimeFluentAssertion.cs" />
     <Compile Include="IObjectFluentAssertion.cs" />
+    <Compile Include="ObjectBaseFluentAssertion.cs" />
     <Compile Include="ObjectFluentAssertion.cs" />
     <Compile Include="Helpers\EqualityHelper.cs" />
     <Compile Include="Extensions\ExtensionsCommonHelpers.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="EnumerableFluentAssertion.cs" />
     <Compile Include="IEqualityFluentAssertionTrait.cs" />
     <Compile Include="INumberFluentAssertion.cs" />
+    <Compile Include="StringBaseFluentAssertion.cs" />
     <Compile Include="StringFluentAssertion.cs" />
     <Compile Include="IEnumerableFluentAssertion.cs" />
     <Compile Include="IStringFluentAssertion.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BaseFluentAssertionDiagram.cd" />
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

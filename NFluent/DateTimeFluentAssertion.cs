@@ -22,7 +22,7 @@ namespace NFluent
     /// Provides assertion methods to be executed on a date time instance. 
     /// Please note that every DateTime are convert to UTC before being compare.
     /// </summary>
-    public class DateTimeFluentAssertion : IDateTimeFluentAssertion
+    public class DateTimeFluentAssertion : ObjectBaseFluentAssertion<IDateTimeFluentAssertion>, IDateTimeFluentAssertion
     {
         private readonly DateTime dateTimeUnderTest;
 
@@ -31,6 +31,7 @@ namespace NFluent
         /// </summary>
         /// <param name="dateTimeUnderTest">The DateTime to assert on. </param>
         public DateTimeFluentAssertion(DateTime dateTimeUnderTest)
+            : base(dateTimeUnderTest)
         {
             this.dateTimeUnderTest = dateTimeUnderTest;
         }
@@ -42,7 +43,7 @@ namespace NFluent
         /// <returns>A chainable assertion.</returns>
         /// <param name="expected">The expected value.</param>
         /// <exception cref="FluentAssertionException">The actual value is not equal to the expected value.</exception>
-        public IChainableFluentAssertion<IDateTimeFluentAssertion> IsEqualTo(object expected)
+        public override IChainableFluentAssertion<IDateTimeFluentAssertion> IsEqualTo(object expected)
         {
             if (expected is DateTime)
             {
@@ -50,7 +51,9 @@ namespace NFluent
             }
             else
             {
-                throw new FluentAssertionException(string.Format("[{0}] not equals to the expected [{1}]", this.dateTimeUnderTest.ToUniversalTime().ToStringProperlyFormated(), expected.ToStringProperlyFormated()));
+                base.IsEqualTo(expected);
+
+                // throw new FluentAssertionException(string.Format("[{0}] not equals to the expected [{1}]", this.dateTimeUnderTest.ToUniversalTime().ToStringProperlyFormated(), expected.ToStringProperlyFormated()));
             }
             
             return this.ChainFluentAssertion();
@@ -62,7 +65,7 @@ namespace NFluent
         /// <returns>A chainable assertion.</returns>
         /// <param name="expected">The expected.</param>
         /// <exception cref="FluentAssertionException">The actual value is equal to the expected value.</exception>
-        public IChainableFluentAssertion<IDateTimeFluentAssertion> IsNotEqualTo(object expected)
+        public override IChainableFluentAssertion<IDateTimeFluentAssertion> IsNotEqualTo(object expected)
         {
             if (expected is DateTime)
             {
@@ -70,40 +73,11 @@ namespace NFluent
             }
             else
             {
-                Helpers.EqualityHelper.IsNotEqualTo(this.dateTimeUnderTest.ToUniversalTime(), expected);
+                base.IsNotEqualTo(expected);
+
+                // Helpers.EqualityHelper.IsNotEqualTo(this.dateTimeUnderTest.ToUniversalTime(), expected);
             }
 
-            return this.ChainFluentAssertion();
-        }
-        #endregion
-
-        #region IsInstance Assertions
-
-        /// <summary>
-        /// Checks that the actual instance is an instance of the given type.
-        /// </summary>
-        /// <typeparam name="T">The expected Type of the instance.</typeparam>
-        /// <returns>
-        /// A chainable fluent assertion.
-        /// </returns>
-        /// <exception cref="FluentAssertionException">The actual instance is not of the provided type.</exception>
-        public IChainableFluentAssertion<IDateTimeFluentAssertion> IsInstanceOf<T>()
-        {
-            Helpers.IsInstanceHelper.IsInstanceOf(this.dateTimeUnderTest, typeof(T));
-            return this.ChainFluentAssertion();
-        }
-
-        /// <summary>
-        /// Checks that the actual instance is not an instance of the given type.
-        /// </summary>
-        /// <typeparam name="T">The type not expected for this instance.</typeparam>
-        /// <returns>
-        /// A chainable fluent assertion.
-        /// </returns>
-        /// <exception cref="FluentAssertionException">The actual instance is of the provided type.</exception>
-        public IChainableFluentAssertion<IDateTimeFluentAssertion> IsNotInstanceOf<T>()
-        {
-            Helpers.IsInstanceHelper.IsNotInstanceOf(this.dateTimeUnderTest, typeof(T));
             return this.ChainFluentAssertion();
         }
         #endregion

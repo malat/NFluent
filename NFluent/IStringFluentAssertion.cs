@@ -17,7 +17,10 @@ namespace NFluent
     /// <summary>
     /// Provides assertion methods to be executed on a string instance.
     /// </summary>
-    public interface IStringFluentAssertion : IFluentAssertion, IEqualityFluentAssertionTrait<IStringFluentAssertion>, IInstanceTypeFluentAssertionTrait<IStringFluentAssertion>
+    /// <typeparam name="T">The real T.
+    /// </typeparam>
+    public interface IStringFluentAssertionTrait<out T> : IObjectFluentAssertionTrait<T>
+        where T : IFluentAssertion
     {
         /// <summary>
         /// Checks that the string contains the given expected values, in any order.
@@ -25,7 +28,7 @@ namespace NFluent
         /// <param name="values">The expected values to be found.</param>
         /// <returns>A chainable assertion.</returns>
         /// <exception cref="FluentAssertionException">The string does not contains all the given strings in any order.</exception>
-        IChainableFluentAssertion<IStringFluentAssertion> Contains(params string[] values);
+        IChainableFluentAssertion<T> Contains(params string[] values);
 
         /// <summary>
         /// Checks that the string starts with the given expected prefix.
@@ -33,6 +36,13 @@ namespace NFluent
         /// <param name="expectedPrefix">The expected prefix.</param>
         /// <returns>A chainable assertion.</returns>
         /// <exception cref="FluentAssertionException">The string does not start with the expected prefix.</exception>
-        IChainableFluentAssertion<IStringFluentAssertion> StartsWith(string expectedPrefix);
+        IChainableFluentAssertion<T> StartsWith(string expectedPrefix);
+    }
+
+    /// <summary>
+    /// Provides assertion methods to be executed on a string instance.
+    /// </summary>
+    public interface IStringFluentAssertion : IStringFluentAssertionTrait<IStringFluentAssertion>
+    {
     }
 }
